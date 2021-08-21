@@ -1,0 +1,52 @@
+.SignIn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background-color: #2b9348;
+background-image: linear-gradient(114deg, #2b9348 0%, #ffffff 99%);
+
+
+}
+
+.SignIn__Form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  height: 90%;
+  background-color: #2b9348;
+  background-image: linear-gradient(114deg, #2b9348 0%, #ffffff 99%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 5px;
+
+}
+
+.SignIn__UserInfo{
+
+  width:80%;
+
+}
+.SignIn__Form button{
+  font-size: 1.8rem;
+  width: 70%;
+  border-radius: 30px;
+  background-color: white;
+  padding: 10px;
+}
+
+.SignIn__UserInfo__Form__label{
+  width: 100%;
+}
+
+.SignIn__UserInfo__Form__label input{
+  width: 95%;
+  height: 44px;
+  border-radius: 5px;
+  background-color: #b5d3bd;
+  font-size: 1.3rem;
+  
+}

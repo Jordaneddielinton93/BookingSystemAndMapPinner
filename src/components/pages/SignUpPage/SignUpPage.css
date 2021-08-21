@@ -1,0 +1,56 @@
+.SignUp{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background-color: #2b9348;
+background-image: linear-gradient(114deg, #2b9348 0%, #ffffff 99%);
+}
+.SignUp__Form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  height: 90%;
+  background-color: #2b9348;
+  background-image: linear-gradient(150deg, #2b9348 0%, #ffffff 99%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 5px;
+}
+
+.SignUp__Form button{
+  font-size: 1.8rem;
+  width: 70%;
+  margin: 5px;
+  border-radius: 30px;
+  background-color: white;
+  padding: 10px;
+}
+
+.SignUp__UserInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+  
+}
+.SignUp__UserInfo label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.SignUp__UserInfo label .icons{
+  position: absolute;
+}
+
+.SignUp__UserInfo label input{
+  width: 95%;
+  height: 44px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #b5d3bd;
+  font-size: 1.3rem;
+}
