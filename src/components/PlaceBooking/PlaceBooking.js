@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { ACTIONS } from "../../bin/reducerState/reducerState";
 import { db ,auth} from "../../Lib/Firebase/Firebase";
 import { pageWrapper } from "../App/App";
 
@@ -22,15 +23,21 @@ const PlaceBooking = ({Value,telPhone}) => {
           for( let id in profile){
             let newObj=profile[id]
               fullListOfProfiles={...newObj,id}
-          }          
+          }
+          stateObj.dispatch({type:ACTIONS.NEW_STATE,payload:fullListOfProfiles})
        })
-       console.log(fullListOfProfiles)
-      sendToFireBase()
-    }
+       
+       
 
+      sendToFireBase()
+      
+    }
   }
 
   function sendToFireBase(){
+    
+    console.log(fullListOfProfiles)
+       console.log(stateObj.state)
     console.log("this should work"+Value)
     db.child(auth.currentUser.uid).child(fullListOfProfiles.id).set({
       ...fullListOfProfiles,
@@ -40,9 +47,6 @@ const PlaceBooking = ({Value,telPhone}) => {
     })
 
   }
-
-
-
 
   return ( 
     <button onClick={checkAllConditionsAreMetBeforeBooking}

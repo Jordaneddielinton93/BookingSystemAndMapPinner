@@ -3,14 +3,15 @@
 export let ACTIONS={
   SET_POSTCODE:"SET_POSTCODE",
   SERVICE_REQUIRED:"SERVICE_REQUIRED",
-  SET_DISPLAY_UID:"SET_DISPLAY_UID"
+  SET_DISPLAY_UID:"SET_DISPLAY_UID",
+  NEW_STATE:"NEW_STATE"
 }
 
 
 export let initialState ={
   Postcode:undefined,
   ServiceRequired:"Service Required",
-  DisplayUID:undefined
+  DisplayUID:undefined,
 }
 
 
@@ -32,6 +33,10 @@ export function Reduce(state,action){
         ...state,
         DisplayUID:action.payload
       }
+    case ACTIONS.NEW_STATE:
+      console.log(action.payload)
+      return action.payload
+
     
     default:
       break;

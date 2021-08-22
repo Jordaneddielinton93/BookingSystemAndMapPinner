@@ -21,7 +21,7 @@ export let pageWrapper = React.createContext()
 function App() {
 
   let [state,dispatch]= useReducer(Reduce,initialState)
-  console.log(state)
+  
   return (
     <pageWrapper.Provider value={{state,dispatch}}>
       <Router>
