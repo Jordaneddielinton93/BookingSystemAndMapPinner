@@ -1,18 +1,19 @@
 import { useContext } from "react";
 import { ACTIONS } from "../../bin/reducerState/reducerState";
 import { db ,auth} from "../../Lib/Firebase/Firebase";
+import FireLoginStatus from "../../Lib/Firebase/FireLoginStatus";
 import { pageWrapper } from "../App/App";
 
 const PlaceBooking = ({Value,telPhone}) => {
 
   let stateObj=useContext(pageWrapper)
-
+  let [user]=FireLoginStatus()
   let fullListOfProfiles
 
   function checkAllConditionsAreMetBeforeBooking(){
 
-    if(stateObj.state.ServiceRequired ==="SERVICE_REQUIRED"){
-      console.log("error wrong info hit")
+    if(stateObj.state.ServiceRequired ==="SERVICE_REQUIRED" || !user ){
+      console.log("pick a category and sign in")
     }else{
       console.log("correct")
       console.log(auth.currentUser)
@@ -36,15 +37,15 @@ const PlaceBooking = ({Value,telPhone}) => {
 
   function sendToFireBase(){
     
-    console.log(fullListOfProfiles)
-       console.log(stateObj.state)
-    console.log("this should work"+Value)
-    db.child(auth.currentUser.uid).child(fullListOfProfiles.id).set({
+    console.log(user)
+    db.child(user.uid).child(fullListOfProfiles.id).set({
       ...fullListOfProfiles,
-      date:`${Value}`,
+      date:`${Value.toString().split(" ").slice(0,4)}`,
       PhoneNumber:telPhone,
 
     })
+
+    console.log(auth)
 
   }
 
