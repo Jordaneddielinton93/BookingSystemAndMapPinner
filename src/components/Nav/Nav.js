@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { auth } from "../../Lib/Firebase/Firebase";
 import "./Nav.css"
 const Nav = () => {
   return ( 
@@ -10,6 +11,9 @@ const Nav = () => {
           <li><Link to="/SignIn">Sign In</Link></li>
           <li><Link to="/SignUp">Sign Up</Link></li>
           <li><Link to="/Booking">Book Now</Link></li>
+          <li onClick={()=>{
+            console.log("signed out")
+            auth.signOut()}}>signout</li>
       </nav>
 
     </header>

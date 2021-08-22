@@ -1,16 +1,16 @@
 import "./SignUpPage.css"
-import { useRef, useState } from "react"
-import { auth } from "../../../Lib/Firebase/Firebase"
-import { AiOutlineMail } from 'react-icons/ai';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { useContext, useRef, useState } from "react"
+import { auth, db } from "../../../Lib/Firebase/Firebase"
 import UseFetch from "../../../bin/UseFetch/UseFetch";
-import { Link } from "react-router-dom"
-
-
-
-
+import { Link, useHistory } from "react-router-dom"
+import { pageWrapper } from "../../App/App";
+import { ACTIONS } from "../../../bin/reducerState/reducerState";
 
 const SignUpPage = () => {
+  let stateObj = useContext(pageWrapper)
+
+
+
   const [PostCode,setPostcode] = useState("")
   const [Url,setUrl] = useState("")
   const [apiData]=UseFetch(Url)
@@ -21,24 +21,41 @@ const SignUpPage = () => {
   const emailRef=useRef(null)
   const PasswordRef=useRef(null)
 
-  function signUp(e){
+  let history = useHistory();
+
+
+  function signUp(e,apiData){
     e.preventDefault()
+    
+    
     auth.createUserWithEmailAndPassword(
+
       emailRef.current.value,
       PasswordRef.current.value
+
     ).then(User=>{
-      console.log(User)
-      return User.user.updateProfile({
-        displayName: name,
+      console.log(User.user)
+      history.push("/Booking");
+      stateObj.dispatch({type:ACTIONS.SET_DISPLAY_UID,payload:User.user.uid})
+      db.child(User.user.uid).push({
+        postcode:PostCode,
+        lati:apiData.latitude,
+        longi:apiData.longitude,
+        displayName:name
       })
+
     }).catch(err=>console.log(err))
   }
 
+
+
   function checkPostCode_andThen_SignUp(e){
     if(apiData && name.length >6){
-      signUp(e)
+      signUp(e,apiData.result)
+      stateObj.dispatch({type:ACTIONS.SET_POSTCODE,payload:apiData.result.postcode})
+      console.log("your postcode is "+ apiData.result.postcode)
     }else{
-      console.log("not a valid postcode and or full name required")
+      alert("not a valid postcode and or full name required")
     }
   }
 
@@ -81,16 +98,11 @@ const SignUpPage = () => {
 
             <label htmlFor="email" required>
             <h3>Email</h3>
-
-            
               <input ref={emailRef} name="email" type="email" required />
             </label>
 
             <label htmlFor="Password" required>
-          <h3>Password</h3>
-
-              
-              
+              <h3>Password</h3>
               <input ref={PasswordRef} name="Password" type="password" />
             </label>
 

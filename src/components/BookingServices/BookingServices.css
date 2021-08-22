@@ -1,0 +1,29 @@
+.Services{
+  width: 350px;
+  background-color: turquoise;
+}
+
+.Services__input{
+  width: 97%;
+}
+
+.Services__partsList{
+  max-height:100px ;
+  overflow-y: scroll;
+  text-align: left;
+  list-style: none;
+  background-color: thistle;
+  font-size: 1rem;
+  border:thin solid grey;
+  border-top: none;
+}
+
+.Services__partsList li{
+  
+  padding: 2px 0;
+  margin-top: 2px;
+  padding-left: 8px;
+  border-radius: 10px;
+  background-color: tomato;
+  cursor: pointer;
+}

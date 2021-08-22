@@ -1,9 +1,17 @@
-import { useRef } from "react"
+import { useContext, useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import { ACTIONS } from "../../../bin/reducerState/reducerState"
 import { auth } from "../../../Lib/Firebase/Firebase"
+import { pageWrapper } from "../../App/App"
 
 import "./SignInPage.css"
 const SignInPage = () => {
+
+  let stateObj=useContext(pageWrapper)
+
+
+
+  let [incorrectLoginMessage,setIncorrectLoginMessage] = useState(false)
 
   const emailRef=useRef(null)
   const PasswordRef=useRef(null)
@@ -17,7 +25,12 @@ const SignInPage = () => {
       PasswordRef.current.value
     ).then(User=>{
       console.log(User)
-    }).catch(err=>console.log(err))
+      stateObj.dispatch({type:ACTIONS.SET_DISPLAY_NAME,payload:User.user.displayName})
+      setIncorrectLoginMessage(false)
+    }).catch(err=>{
+      console.log(err.message)
+      setIncorrectLoginMessage("incorrect email or password, sign up?")
+    })
   }
 
 
@@ -25,7 +38,6 @@ const SignInPage = () => {
 
   return ( 
     <div className="SignIn">
-      
       
 
       <form className="SignIn__Form">
@@ -36,7 +48,9 @@ const SignInPage = () => {
 
         <label className="SignIn__UserInfo__Form__label" htmlFor="Email">
           <h3>Email</h3>
-          <input ref={emailRef} type="text" name="Email"/>
+          <input style={{border:`thick solid ${incorrectLoginMessage?"red":"green"}`}}
+          ref={emailRef} type="text" name="Email"/>
+          <p className="incorrect-message">{incorrectLoginMessage}</p>
         </label>
 
         <label className="SignIn__UserInfo__Form__label" htmlFor="Password">

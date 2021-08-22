@@ -1,0 +1,59 @@
+.booking{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 100vw;
+  background-color: #2b9348;
+  background-image: linear-gradient(114deg, #2b9348 0%, #ffffff 99%); 
+}
+
+.booking__main{
+  width: 1200px;
+  min-height:90vh;
+  background-color: white;
+}
+
+.booking__main__userCard{
+  width: 100%;
+  height: 50vh;
+  background-color: violet;
+}
+
+.booking__main__calanderAndServicesBox{
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  background-color: wheat;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.booking__main__calander{
+  display: flex;
+  height: 350px;
+}
+
+.booking__main__services{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 350px;
+  background-color: honeydew;
+}
+
+.booking__main__services-title{
+  margin: 0;
+  padding: 0;
+}
+.booking__main__services-input{
+  width: 97%;
+}
+
+
+
+.place-booking{
+  height: 44px;
+}

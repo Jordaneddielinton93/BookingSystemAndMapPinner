@@ -42,6 +42,11 @@ background-image: linear-gradient(114deg, #2b9348 0%, #ffffff 99%);
   width: 100%;
 }
 
+.incorrect-message{
+  color: rgb(90, 41, 41);
+  font-weight: 900;
+}
+
 .SignIn__UserInfo__Form__label input{
   width: 95%;
   height: 44px;
