@@ -7,7 +7,7 @@ const BookingServices = () => {
 
   let stateObj = useContext(pageWrapper)
   
-
+  
 
   let [service,setService] = useState("")
 
@@ -15,7 +15,7 @@ const BookingServices = () => {
   return ( 
     <div className="Services">
 
-      <h1>ServiceRequired</h1>
+      <h1>{stateObj.state.ServiceRequired}</h1>
       <input
         className="Services__input"
         onChange={(e)=>setService(e.target.value)}

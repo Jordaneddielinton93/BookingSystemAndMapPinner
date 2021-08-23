@@ -16,15 +16,15 @@ date.setDate(date.getDate() + 3);
 
 
 
-  const [value, onChange] = useState(date);
+  const [chosenDate, onChange] = useState(date);
   
-  console.log(value)
+  console.log(chosenDate)
   return ( 
     <div className="booking">
       <main className="booking__main">
 
         <section className="booking__main__userCard">
-          {stateObj.state.Postcode}
+          {"add postcode here"}
         </section>
 
         <div className="booking__main__calanderAndServicesBox">
@@ -33,7 +33,7 @@ date.setDate(date.getDate() + 3);
             <Calendar
               minDate={date}
               onChange={onChange}
-              value={value}
+              value={chosenDate}
             />
             {/* callander above map below */}
 
@@ -41,12 +41,8 @@ date.setDate(date.getDate() + 3);
 
           <section className="booking__main__services" >
             <BookingServices />
-
-            
-            
-            
             <PlaceBooking 
-            Value={value}
+            chosenDate={chosenDate}
             
             />
 

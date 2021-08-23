@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { ACTIONS } from "../../../bin/reducerState/reducerState"
 import { auth } from "../../../Lib/Firebase/Firebase"
 import { pageWrapper } from "../../App/App"
@@ -8,7 +8,7 @@ import "./SignInPage.css"
 const SignInPage = () => {
 
   let stateObj=useContext(pageWrapper)
-
+  let history = useHistory();
 
 
   let [incorrectLoginMessage,setIncorrectLoginMessage] = useState(false)
@@ -25,8 +25,9 @@ const SignInPage = () => {
       PasswordRef.current.value
     ).then(User=>{
       console.log(User)
-      stateObj.dispatch({type:ACTIONS.SET_DISPLAY_NAME,payload:User.user.displayName})
+      stateObj.dispatch({type:ACTIONS.SERVICE_REQUIRED,payload:"Service Required"})
       setIncorrectLoginMessage(false)
+      history.push("/Booking")
     }).catch(err=>{
       console.log(err.message)
       setIncorrectLoginMessage("incorrect email or password, sign up?")

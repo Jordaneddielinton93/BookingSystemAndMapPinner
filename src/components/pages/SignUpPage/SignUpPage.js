@@ -31,12 +31,12 @@ const SignUpPage = () => {
       PasswordRef.current.value
 
     ).then(User=>{
-      console.log(User.user)
+     
       
       stateObj.dispatch({type:ACTIONS.SET_DISPLAY_UID,payload:User.user.uid})
 
-      console.log(apiData)
-      db.child(User.user.uid).push({
+     
+      db.child(User.user.uid).set({
         postcode:postcodeRef.current.value,
         lati:apiData.result.latitude,
         longi:apiData.result.longitude,
@@ -59,7 +59,7 @@ const SignUpPage = () => {
 
   function checkPhoneLength() {
     if(telPhone.length === 11){
-      console.log("call signup");
+
       signUp()
       setIncorrectPhone(null)
       
