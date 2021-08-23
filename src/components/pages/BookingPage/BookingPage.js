@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import BookingServices from "../../BookingServices/BookingServices";
 import { pageWrapper } from "../../App/App";
 import PlaceBooking from "../../PlaceBooking/PlaceBooking";
+import Map from "../../GoogleMap/Map";
 const BookingPage = () => {
 
 
@@ -24,7 +25,12 @@ date.setDate(date.getDate() + 3);
       <main className="booking__main">
 
         <section className="booking__main__userCard">
-          {"add postcode here"}
+
+          
+          
+          <Map/>
+
+
         </section>
 
         <div className="booking__main__calanderAndServicesBox">

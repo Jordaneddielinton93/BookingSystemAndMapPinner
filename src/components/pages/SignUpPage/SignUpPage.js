@@ -35,13 +35,13 @@ const SignUpPage = () => {
       
       stateObj.dispatch({type:ACTIONS.SET_DISPLAY_UID,payload:User.user.uid})
 
-     
       db.child(User.user.uid).set({
         postcode:postcodeRef.current.value,
         lati:apiData.result.latitude,
         longi:apiData.result.longitude,
         displayName:nameRef.current.value,
-        PhoneNumber:`${telPhone}`
+        PhoneNumber:`${telPhone}`,
+        hasAbooking:"false"
       })
       history.push("/Booking");
 
