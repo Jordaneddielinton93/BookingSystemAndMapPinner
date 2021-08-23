@@ -1,71 +1,82 @@
 import "./SignUpPage.css"
-import { useContext, useRef, useState } from "react"
+import { useContext, useRef, useState, useEffect} from "react"
 import { auth, db } from "../../../Lib/Firebase/Firebase"
 import UseFetch from "../../../bin/UseFetch/UseFetch";
 import { Link, useHistory } from "react-router-dom"
 import { pageWrapper } from "../../App/App";
 import { ACTIONS } from "../../../bin/reducerState/reducerState";
+import PhoneNumber from "../../PhoneNumber/PhoneNumber";
 
 const SignUpPage = () => {
   let stateObj = useContext(pageWrapper)
 
 
+  let [incorrectPhone,setIncorrectPhone] = useState(null)
+  const [fetchPostCode,setfetchPostCode] = useState("")
+  const [apiData,incorrectPostcode]=UseFetch(fetchPostCode)
 
-  const [PostCode,setPostcode] = useState("")
-  const [Url,setUrl] = useState("")
-  const [apiData]=UseFetch(Url)
-
-
-  const [name,setName]= useState(null)
-
-  const emailRef=useRef(null)
-  const PasswordRef=useRef(null)
+  const [telPhone, setTelPhone] = useState(undefined);
+  const nameRef= useRef(null)
+  const postcodeRef = useRef(null)
+  const emailRef = useRef(null)
+  const PasswordRef = useRef(null)
 
   let history = useHistory();
 
 
-  function signUp(e,apiData){
-    e.preventDefault()
-    
-    
+  function signUp(){
+    console.log("is called")
     auth.createUserWithEmailAndPassword(
-
       emailRef.current.value,
       PasswordRef.current.value
 
     ).then(User=>{
       console.log(User.user)
-      history.push("/Booking");
+      
       stateObj.dispatch({type:ACTIONS.SET_DISPLAY_UID,payload:User.user.uid})
+
+      console.log(apiData)
       db.child(User.user.uid).push({
-        postcode:PostCode,
-        lati:apiData.latitude,
-        longi:apiData.longitude,
-        displayName:name
+        postcode:postcodeRef.current.value,
+        lati:apiData.result.latitude,
+        longi:apiData.result.longitude,
+        displayName:nameRef.current.value,
+        PhoneNumber:`${telPhone}`
       })
+      history.push("/Booking");
 
     }).catch(err=>console.log(err))
   }
 
 
 
-  function checkPostCode_andThen_SignUp(e){
-    if(apiData && name.length >6){
-      signUp(e,apiData.result)
-      stateObj.dispatch({type:ACTIONS.SET_POSTCODE,payload:apiData.result.postcode})
-      console.log("your postcode is "+ apiData.result.postcode)
+
+
+  async function fetchPostCodeApi(e){
+    e.preventDefault()
+    setfetchPostCode(`https://api.postcodes.io/postcodes/${postcodeRef.current.value}`)
+  }
+
+  function checkPhoneLength() {
+    if(telPhone.length === 11){
+      console.log("call signup");
+      signUp()
+      setIncorrectPhone(null)
+      
     }else{
-      alert("not a valid postcode and or full name required")
+      postcodeRef.current.value = ""
+      setfetchPostCode("")
+      setIncorrectPhone("incorrect phone number, 11 digits only")
     }
   }
 
-  try{
-    console.log(apiData.result)
-      
-    }catch{
-      console.log("no")
-  
+  useEffect(()=>{
+    if(apiData.status===200){
+      checkPhoneLength()
+    }else{
     }
+  },[apiData])
+  
 
   return ( 
     <div className="SignUp">
@@ -74,7 +85,7 @@ const SignUpPage = () => {
 
       <form className="SignUp__Form">
 
-          <h1>Sign up</h1>
+          <h1 className="SignUp__Form-title">Sign up</h1>
 
           <div className="SignUp__UserInfo">
 
@@ -82,19 +93,20 @@ const SignUpPage = () => {
           
               <h3>Full name</h3>
               
-              <input onChange={(e)=>setName(e.target.value)}
+              <input ref={nameRef}
               name="FullName" type="text" required/>
             </label>
 
             <label htmlFor="postcode">
               <h3>Postcode</h3>
               
-              <input required
-              onChange={(e)=>setPostcode(e.target.value)} type="search" />
-
-              <button onClick={()=>setUrl(`https://api.postcodes.io/postcodes/${PostCode}`)}>search</button>
-
+              <input ref={postcodeRef}
+               type="search" required />
+              <p className="incorrect-postcode">{incorrectPostcode}</p>
             </label>
+
+            <PhoneNumber setTelPhone={setTelPhone}/>
+            <p className="incorrect-postcode">{incorrectPhone}</p>
 
             <label htmlFor="email" required>
             <h3>Email</h3>
@@ -106,9 +118,11 @@ const SignUpPage = () => {
               <input ref={PasswordRef} name="Password" type="password" />
             </label>
 
+            
+
           </div>
 
-          <button onClick={checkPostCode_andThen_SignUp}
+          <button onClick={(e)=>fetchPostCodeApi(e)}
           className="signUp"
           >Sign up</button>
 

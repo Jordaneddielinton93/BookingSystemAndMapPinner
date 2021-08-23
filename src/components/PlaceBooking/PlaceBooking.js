@@ -4,14 +4,14 @@ import { db ,auth} from "../../Lib/Firebase/Firebase";
 import FireLoginStatus from "../../Lib/Firebase/FireLoginStatus";
 import { pageWrapper } from "../App/App";
 
-const PlaceBooking = ({Value,telPhone}) => {
+const PlaceBooking = ({Value}) => {
 
   let stateObj=useContext(pageWrapper)
   let [user]=FireLoginStatus()
-  let fullListOfProfiles
+
 
   function checkAllConditionsAreMetBeforeBooking(){
-
+    let fullListOfProfiles
     if(stateObj.state.ServiceRequired ==="SERVICE_REQUIRED" || !user ){
       console.log("pick a category and sign in")
     }else{
@@ -24,25 +24,25 @@ const PlaceBooking = ({Value,telPhone}) => {
           for( let id in profile){
             let newObj=profile[id]
               fullListOfProfiles={...newObj,id}
+              console.log(fullListOfProfiles)
           }
-          stateObj.dispatch({type:ACTIONS.NEW_STATE,payload:fullListOfProfiles})
+          // stateObj.dispatch({type:ACTIONS.NEW_STATE,payload:fullListOfProfiles})
+          sendToFireBase(fullListOfProfiles)
        })
        
        
 
-      sendToFireBase()
+      
       
     }
   }
 
-  function sendToFireBase(){
+  function sendToFireBase(fullListOfProfiles){
     
-    console.log(user)
-    db.child(user.uid).child(fullListOfProfiles.id).set({
+    console.log(fullListOfProfiles)
+    db.child(auth.currentUser.uid).child(fullListOfProfiles.id).set({
       ...fullListOfProfiles,
       date:`${Value.toString().split(" ").slice(0,4)}`,
-      PhoneNumber:telPhone,
-
     })
 
     console.log(auth)
