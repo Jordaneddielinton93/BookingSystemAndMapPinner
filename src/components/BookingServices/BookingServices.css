@@ -3,6 +3,10 @@
   background-color: turquoise;
 }
 
+.Services-title{
+  font-size: 1.3rem;
+  padding: 1px;
+}
 .Services__input{
   width: 97%;
 }

@@ -10,10 +10,12 @@ const PlaceBooking = ({chosenDate}) => {
   let [user]=FireLoginStatus()
 
   function checkLoginAndServiceChosen(){
+    console.log("i am")
 
     if(stateObj.state.ServiceRequired ==="SERVICE_REQUIRED" || !user ){
       console.log("pick a category and sign in")
-    }else{    
+    }else{
+      console.log(user)
           sendToFireBase()
     }
   }
@@ -21,6 +23,7 @@ const PlaceBooking = ({chosenDate}) => {
   function sendToFireBase(){
     db.child(auth.currentUser.uid).update({
       date:`${chosenDate.toString().split(" ").slice(0,4)}`,
+      service:stateObj.state.ServiceRequired
     })
   }
 

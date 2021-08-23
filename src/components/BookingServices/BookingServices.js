@@ -15,7 +15,7 @@ const BookingServices = () => {
   return ( 
     <div className="Services">
 
-      <h1>{stateObj.state.ServiceRequired}</h1>
+      <h1 className="Services-title">{stateObj.state.ServiceRequired}</h1>
       <input
         className="Services__input"
         onChange={(e)=>setService(e.target.value)}

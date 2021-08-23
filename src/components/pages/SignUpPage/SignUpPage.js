@@ -45,7 +45,9 @@ const SignUpPage = () => {
       })
       history.push("/Booking");
 
-    }).catch(err=>console.log(err))
+    }).catch(err=>{
+      console.log(alert("this is allready an account"))
+    })
   }
 
 
