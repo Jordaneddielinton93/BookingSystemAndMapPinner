@@ -6,29 +6,38 @@ import BookingServices from "../../BookingServices/BookingServices";
 import { pageWrapper } from "../../App/App";
 import PlaceBooking from "../../PlaceBooking/PlaceBooking";
 import Map from "../../GoogleMap/Map";
+import StatusCard from "../../StatusCard/StatusCard";
+import FireLoginStatus from "../../../Lib/Firebase/FireLoginStatus";
 const BookingPage = () => {
 
 
-  let stateObj= useContext(pageWrapper)
   
 var date = new Date();
 date.setDate(date.getDate() + 3);
 // sets the day they can make a Booking
 
+let [user]= FireLoginStatus()
 
 
   const [chosenDate, onChange] = useState(date);
   
-  console.log(chosenDate)
   return ( 
     <div className="booking">
       <main className="booking__main">
 
         <section className="booking__main__userCard">
 
+          {
+            user?(
+            <>
+            <StatusCard/> <Map/>
+            </>
+            ):<>Please sign in to place a booking</>
+          }
+
           
           
-          <Map/>
+         
 
 
         </section>

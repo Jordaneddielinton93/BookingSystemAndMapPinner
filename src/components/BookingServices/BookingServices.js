@@ -17,6 +17,7 @@ const BookingServices = () => {
 
       <h1 className="Services-title">{stateObj.state.ServiceRequired}</h1>
       <input
+        placeholder="Type a service ?"
         className="Services__input"
         onChange={(e)=>setService(e.target.value)}
         type="text"

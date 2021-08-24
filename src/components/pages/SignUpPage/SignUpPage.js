@@ -41,7 +41,8 @@ const SignUpPage = () => {
         longi:apiData.result.longitude,
         displayName:nameRef.current.value,
         PhoneNumber:`${telPhone}`,
-        hasAbooking:"false"
+        bookingStatus:"none",
+        
       })
       history.push("/Booking");
 

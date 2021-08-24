@@ -23,7 +23,8 @@ const PlaceBooking = ({chosenDate}) => {
   function sendToFireBase(){
     db.child(auth.currentUser.uid).update({
       date:`${chosenDate.toString().split(" ").slice(0,4)}`,
-      service:stateObj.state.ServiceRequired
+      service:stateObj.state.ServiceRequired,
+      bookingStatus:"Pending"
     })
   }
 

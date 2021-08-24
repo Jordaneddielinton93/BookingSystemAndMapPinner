@@ -6,30 +6,26 @@ import { auth, db } from "../../Lib/Firebase/Firebase";
 import { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 
   export default function SimpleMap(){
 
-    let [LAT,setLAT]=useState()
-    let [LONGI,setLONGI]=useState()
+    let [LAT,setLAT]=useState(52.489471)
+    let [LONGI,setLONGI]=useState(-1.898575)
 
 
     useEffect(()=>{
       db.once("value",(snapshot)=>{
-
         try {
-
           let profile = snapshot.child(auth.currentUser.uid).val()
-        console.log(profile)
-          
+        console.log(profile)  
         setLAT(profile.lati)
         setLONGI(profile.longi)
-          
         } catch (error) {
           console.log(error)
         }
       })
-    },[db])
+    },[])
 
 
     const defaultProps = {
@@ -57,18 +53,6 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
     </div>
   );
 }
-
-
-
-// Map.deaultProps={
-//   center:{
-//     lat:52.4862,
-//     lng:1.8904
-//   },
-//   zooom:6
-// }
- 
-
 
 
 
