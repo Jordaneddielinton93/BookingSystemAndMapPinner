@@ -16,7 +16,7 @@ var date = new Date();
 date.setDate(date.getDate() + 3);
 // sets the day they can make a Booking
 
-let [user]= FireLoginStatus()
+let [user] = FireLoginStatus()
 
 
   const [chosenDate, onChange] = useState(date);
