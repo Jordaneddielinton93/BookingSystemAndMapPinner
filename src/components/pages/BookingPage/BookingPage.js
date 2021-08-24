@@ -10,8 +10,6 @@ import StatusCard from "../../StatusCard/StatusCard";
 import FireLoginStatus from "../../../Lib/Firebase/FireLoginStatus";
 const BookingPage = () => {
 
-
-  
 var date = new Date();
 date.setDate(date.getDate() + 3);
 // sets the day they can make a Booking
